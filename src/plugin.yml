@@ -1,0 +1,4 @@
+name: jPacketListener
+version: 1.0
+author: Kodek
+main: jcraft.pl.PacketListenerPlugin
