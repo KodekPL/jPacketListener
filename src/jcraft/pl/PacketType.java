@@ -109,9 +109,9 @@ public enum PacketType {
     IN_SPECTATE(PacketPlayInSpectate.class),
     IN_RESOURCE_PACK_STATUS(PacketPlayInResourcePackStatus.class);
 
-    private static Map<Class<?>, PacketType> typeByClass = new HashMap<Class<?>, PacketType>();
+    private static final Map<Class<?>, PacketType> typeByClass = new HashMap<Class<?>, PacketType>();
 
-    private Class<?> packetClass;
+    private final Class<?> packetClass;
 
     PacketType(Class<?> packetClass) {
         this.packetClass = packetClass;
