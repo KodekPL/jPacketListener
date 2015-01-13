@@ -2,6 +2,8 @@ package jcraft.pl.event;
 
 import java.lang.reflect.Field;
 
+import jcraft.pl.PacketType;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -12,17 +14,23 @@ public class PacketPlayInEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
     private final Player player;
+    private final PacketType type;
     private Object packet;
 
     private boolean isCancelled;
 
-    public PacketPlayInEvent(Object packet, Player player) {
+    public PacketPlayInEvent(Object packet, PacketType type, Player player) {
         this.player = player;
+        this.type = type;
         this.packet = packet;
     }
 
     public Player getPlayer() {
         return this.player;
+    }
+
+    public PacketType getPacketType() {
+        return this.type;
     }
 
     public void setPacketValue(String fieldName, Object value) {

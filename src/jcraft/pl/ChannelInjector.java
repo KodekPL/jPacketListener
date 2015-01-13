@@ -12,17 +12,23 @@ import org.bukkit.entity.Player;
 
 public class ChannelInjector {
 
+    private final PacketListenerPlugin plugin;
+
+    public ChannelInjector(PacketListenerPlugin plugin) {
+        this.plugin = plugin;
+    }
+
     public void addChannel(Player player) {
         final Channel channel = NMSUtils.getNetworkManagerChannel(player);
 
         try {
-            channel.pipeline().addBefore("packet_handler", "packet_listener_in", new ChannelReadHandler(player));
+            channel.pipeline().addBefore("packet_handler", "packet_listener_in", new ChannelReadHandler(this.plugin, player));
         } catch (IllegalArgumentException e) {
 
         }
 
         try {
-            channel.pipeline().addBefore("packet_handler", "packet_listener_out", new ChannelWriteHandler(player));
+            channel.pipeline().addBefore("packet_handler", "packet_listener_out", new ChannelWriteHandler(this.plugin, player));
         } catch (IllegalArgumentException e) {
 
         }
