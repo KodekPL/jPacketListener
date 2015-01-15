@@ -9,11 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PacketListenerPlugin extends JavaPlugin implements Listener {
 
     private ChannelInjector injector;
-    private Set<PacketType> registeredPacketTypes;
+    private Set<PacketType> registeredPacketTypes = new HashSet<PacketType>();
 
     public void onEnable() {
         injector = new ChannelInjector(this);
-        registeredPacketTypes = new HashSet<PacketType>();
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
     }
