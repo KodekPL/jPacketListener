@@ -15,12 +15,12 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        this.plugin.getInjector().addChannel(event.getPlayer());
+        this.plugin.getInjector().queueAddChannel(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        this.plugin.getInjector().removeChannel(event.getPlayer());
+        this.plugin.getInjector().queueRemoveChannel(event.getPlayer());
     }
 
 }

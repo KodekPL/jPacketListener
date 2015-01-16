@@ -8,13 +8,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PacketListenerPlugin extends JavaPlugin implements Listener {
 
+    private Thread injectorThread;
     private ChannelInjector injector;
     private Set<PacketType> registeredPacketTypes = new HashSet<PacketType>();
 
     public void onEnable() {
         injector = new ChannelInjector(this);
+        injectorThread = new Thread(injector);
+        injectorThread.start();
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+    }
+
+    public void onDisable() {
+        injector.killInjector();
+        injector.notifyInjector();
+
+        try {
+            injectorThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public ChannelInjector getInjector() {
